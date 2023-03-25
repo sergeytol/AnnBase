@@ -9,9 +9,13 @@ func main() {
 
 	var err error
 
-	db := database.Db{
-		PathToFile: "db.json",
+	db := &database.Db{}
+	err = db.LoadDatabase("db.json")
+	if err != nil {
+		log.Printf("Unable to load DB file: %s\n", err)
+		return
 	}
+	defer db.Close()
 
 	// example 1
 
